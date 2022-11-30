@@ -1,6 +1,6 @@
-package com.example.demo.controller;
+package com.example.demo.model;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 /**
  * @author kunal
@@ -11,7 +11,7 @@ public class HealthCheckMessage {
 
 	private String status;
 
-	private LocalDateTime currentTime;
+	private Instant currentTime;
 
 	public String getStatus() {
 		return status;
@@ -21,11 +21,11 @@ public class HealthCheckMessage {
 		this.status = status;
 	}
 
-	public LocalDateTime getCurrentTime() {
+	public Instant getCurrentTime() {
 		return currentTime;
 	}
 
-	public void setCurrentTime(LocalDateTime currentTime) {
+	public void setCurrentTime(Instant currentTime) {
 		this.currentTime = currentTime;
 	}
 
