@@ -1,8 +1,7 @@
 package com.example.demo.controller;
 
-import java.time.LocalDateTime;
-
 import java.time.Instant;
+import com.example.demo.logging.Loggable;
 import com.example.demo.model.HealthCheckMessage;
 import com.example.demo.model.HealthMessageStatus;
 
@@ -20,28 +19,30 @@ import org.springframework.web.bind.annotation.*;
  *
  */
 
+@Loggable
 @RestController
 public class HealthCheckController {
 	private static final Logger logger = LogManager.getLogger(HealthCheckController.class);
 
-	// The GetMapping URL - /healthcheck?format=short is not the correct way to define and is not correct as per the REST Standards.
-	// We should use @RequestParam annotation to handle query parameters in the request URL, for instance, /healthcheck/format
-	// with @GetMapping(value = "/healthcheck/format" , produces = MediaType.APPLICATION_JSON_VALUE)
-	// public ResponseEntity<HealthMessageStatus> healthQueryParam(@RequestParam(status="status" String status) { .... }
-	// For the @GetMapping(value = "/healthcheck") URL to work we should comment out the @GetMapping(value = "/healthcheck?format=short") URL
+	/*
+		The GetMapping URL - /healthcheck?format=short is not the correct way to define and is not correct as per the REST Standards.
+		We should use @RequestParam annotation to handle query parameters in the request URL, for instance, /healthcheck/format
+		with @GetMapping(value = "/healthcheck/format" , produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<HealthMessageStatus> healthQueryParam(@RequestParam(name="short") String short) { .... }
+		For the @GetMapping(value = "/healthcheck") URL to work we should comment the @GetMapping(value = "/healthcheck?format=short") URL
+	 */
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@GetMapping(value = "/healthcheck?format=short" , produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HealthMessageStatus> healthcheckGet() throws HttpRequestMethodNotSupportedException {
+	public ResponseEntity<HealthMessageStatus> healthcheckGet() {
 		logger.info("Inside /healthcheck?format=short GET Method ");
-		final HttpHeaders httpHeaders= new HttpHeaders();
-		httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 		HealthMessageStatus healthMessageStatus = new HealthMessageStatus();
 		if (healthMessageStatus!=null) {
 			healthMessageStatus.setStatus("OK");
-			return new ResponseEntity<>(httpHeaders, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(healthMessageStatus, HttpStatus.METHOD_NOT_ALLOWED);
 		}
-		throw new HttpRequestMethodNotSupportedException(healthMessageStatus.getStatus());
+		//throw new HttpRequestMethodNotSupportedException(healthMessageStatus.getStatus());
+		return new ResponseEntity<>(healthMessageStatus, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(Exception.class)

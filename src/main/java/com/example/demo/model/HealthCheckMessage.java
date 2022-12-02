@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.logging.Loggable;
+
 import java.time.Instant;
 
 /**
@@ -7,6 +9,7 @@ import java.time.Instant;
  *
  */
 
+@Loggable
 public class HealthCheckMessage {
 
 	private String status;

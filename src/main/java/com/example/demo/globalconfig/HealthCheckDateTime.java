@@ -15,11 +15,9 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
  * @author kunal
  *
  */
-/*
 @Configuration
 @AutoConfigureBefore({ JacksonAutoConfiguration.class })
 public class HealthCheckDateTime {
-
 	@Bean
 	public Jackson2ObjectMapperBuilderCustomizer jacksonObjectMapperBuilderCustomizer() {
 		return jacksonObjectMapperBuilder -> {
@@ -30,4 +28,4 @@ public class HealthCheckDateTime {
 		};
 	}
 
-}*/
+}

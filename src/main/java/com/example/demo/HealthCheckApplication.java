@@ -14,7 +14,7 @@ public class HealthCheckApplication {
 	private static final Logger logger = LogManager.getLogger(HealthCheckApplication.class);
 	public static void main(String[] args) {
 		SpringApplication.run(HealthCheckApplication.class, args);
-		logger.info("Healthcheck Springboot application started successfully ");
+		logger.info("Health Check Spring Boot application started successfully ");
 	}
 
 }
